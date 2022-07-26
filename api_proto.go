@@ -114,11 +114,6 @@ import(
 	restapi "github.com/zYros90/protoc-gen-restapi"
 )
 
-type ApiAnnotations struct {
-	Method string
-	Path   string
-}
-
 {{ range $svc := .Services }}
 {{ range $el :=  methodsets . }}
 const {{$svc.Name}}_{{$el.Name}}_Method = "{{$el.Method}}"
