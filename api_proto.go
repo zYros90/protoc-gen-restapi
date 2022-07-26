@@ -111,7 +111,7 @@ const apiTpl = `package {{ package . }}
 
 import(
 	_ "github.com/labstack/echo/v4"
-	restapi "github.com/zyros90/protoc-gen-restapi"
+	restapi "github.com/zYros90/protoc-gen-restapi"
 )
 
 {{ range $svc := .Services }}
