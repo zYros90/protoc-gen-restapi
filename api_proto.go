@@ -9,6 +9,11 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+type ApiAnnotations struct {
+	Method string
+	Path   string
+}
+
 type APIModule struct {
 	*pgs.ModuleBase
 	ctx pgsgo.Context
@@ -106,13 +111,30 @@ const apiTpl = `package {{ package . }}
 
 import(
 	_ "github.com/labstack/echo/v4"
+	restapi "github.com/zYros90/protoc-gen-restapi"
 )
 
-{{ range $svc := .Services }}
+type ApiAnnotations struct {
+	Method string
+	Path   string
+}
 
+{{ range $svc := .Services }}
 {{ range $el :=  methodsets . }}
 const {{$svc.Name}}_{{$el.Name}}_Method = "{{$el.Method}}"
 const {{$svc.Name}}_{{$el.Name}}_Path = "{{$el.Path}}"
 {{end}}
 {{end}}
+
+
+{{ range $svc := .Services }}
+var {{$svc.Name}}HTTP []*restapi.ApiAnnotations = []*restapi.ApiAnnotations{
+{{ range $el :=  methodsets . }}
+{
+	Method: {{$svc.Name}}_{{$el.Name}}_Method,
+	Path:   {{$svc.Name}}_{{$el.Name}}_Path,
+},
+{{end}}
+{{end}}
+}
 `
