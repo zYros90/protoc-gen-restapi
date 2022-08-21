@@ -104,9 +104,6 @@ func (p *APIModule) generate(f pgs.File) {
 
 const apiTpl = `package {{ package . }}
 
-import(
-	_ "github.com/labstack/echo/v4"
-)
 
 {{ range $svc := .Services }}
 
