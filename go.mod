@@ -1,4 +1,4 @@
-module github.com/zYros90/protoc-gen-api
+module github.com/zYros90/protoc-gen-restapi
 
 go 1.18
 

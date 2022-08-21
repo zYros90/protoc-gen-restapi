@@ -104,12 +104,26 @@ func (p *APIModule) generate(f pgs.File) {
 
 const apiTpl = `package {{ package . }}
 
+import(
+	restapi "github.com/zYros90/protoc-gen-restapi/utils"
+)
 
 {{ range $svc := .Services }}
-
 {{ range $el :=  methodsets . }}
 const {{$svc.Name}}_{{$el.Name}}_Method = "{{$el.Method}}"
 const {{$svc.Name}}_{{$el.Name}}_Path = "{{$el.Path}}"
 {{end}}
 {{end}}
+
+
+{{ range $svc := .Services }}
+var {{$svc.Name}}HTTP []*restapi.ApiAnnotations = []*restapi.ApiAnnotations{
+{{ range $el :=  methodsets . }}
+{
+	Method: {{$svc.Name}}_{{$el.Name}}_Method,
+	Path:   {{$svc.Name}}_{{$el.Name}}_Path,
+},
+{{end}}
+{{end}}
+}
 `
