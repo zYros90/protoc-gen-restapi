@@ -21,7 +21,6 @@ service UserSvc {
 it generates a `user.pb.api.go` file
 ```go
 import (
-	_ "github.com/labstack/echo/v4"
 	restapi "github.com/zYros90/protoc-gen-restapi/utils"
 )
 
